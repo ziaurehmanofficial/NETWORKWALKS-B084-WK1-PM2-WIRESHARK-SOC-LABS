@@ -1,8 +1,8 @@
 <div align="center">
 
-# 
+# 🦈Wireshark SOC Labs – Network Traffic Analysis
 
-**Building and configuring an isolated virtual lab for penetration testing and ethical hacking practice**
+**Analyzing network traffic and identifying potential security threats using Wireshark for SOC operations and cybersecurity investigation**
 </div>
 
 <p align="center">
@@ -13,6 +13,7 @@
   <img src="https://img.shields.io/badge/Security%20Analysis-C00000?style=flat-square&labelColor=000000&logo=kalilinux&logoColor=white" />
   <img src="https://img.shields.io/badge/Skill-Packet%20Inspection-404040?style=flat-square&labelColor=C00000" />
   <img src="https://img.shields.io/badge/GitHub-404040?style=flat-square&labelColor=0070C0&logo=github&logoColor=white" />
+   <img src="https://img.shields.io/badge/Threat%20Detection-C00000?style=flat-square&labelColor=000000&logo=kalilinux&logoColor=white" />
   <img src="https://img.shields.io/badge/Ethical%20Hacking-E87500?style=flat-square&labelColor=000000&logo=kalilinux&logoColor=white" />
   </p>
 
