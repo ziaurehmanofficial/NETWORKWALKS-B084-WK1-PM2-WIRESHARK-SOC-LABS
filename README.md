@@ -125,7 +125,7 @@ tcp.flags.syn == 1
 
 Analyzed the Source and Destination columns to identify repeated connection attempts.
 
-
+![](7-screenshot.png)
 
 Findings:
 
@@ -150,8 +150,6 @@ Applied the filter:
 tcp.port == 5000
 ```
 
-
-
 Findings:
 - Identified the client IP.
 - Identified the server IP.
@@ -168,6 +166,8 @@ Applied the HTTP display filter to inspect web requests and responses.
 ```text
 http
 ```
+
+![](8-screenshot.png)
 
 Used Follow TCP Stream to examine requested pages and identify hidden information within HTML comments.
 
@@ -209,9 +209,13 @@ Applied the following display filters:
 ```text
 sip
 ```
+
+![](9-screenshot.png)
+
 ```text
 rtp
 ```
+![](9.1-screenshot.png)
 
 Used Telephony → VoIP Calls to identify the call and replay the captured audio streams.
 
