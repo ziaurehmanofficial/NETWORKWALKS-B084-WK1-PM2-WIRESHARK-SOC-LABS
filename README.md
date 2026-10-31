@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🦈Wireshark SOC Labs – Network Traffic Analysis
+# 🦈Wireshark SOC Lab – Network Traffic Analysis
 
 **Analyzing network traffic and identifying potential security threats using Wireshark for SOC operations and cybersecurity investigation**
 </div>
@@ -35,46 +35,47 @@ The exercises were completed using the Networkwalks cybersecurity lab environmen
 
 The main objectives of this project are to:
 
-- Install and configure Oracle VirtualBox.
-- Import and configure Kali Linux as a virtual machine.
-- Create a private **NAT Network** for the cybersecurity lab.
-- Configure network connectivity for Kali Linux.
-- Assign a consistent IP address to the Kali VM.
-- Verify network connectivity and DNS resolution.
-- Take a clean VM snapshot for recovery.
-- Document the complete setup process.
-- Prepare the environment for future cybersecurity projects.
+- Capture and analyze network traffic using Wireshark.
+- Understand network protocols and their communication patterns.
+- Apply display filters to investigate specific packets.
+- Identify suspicious IP addresses and network activities.
+- Analyze TCP SYN port scanning behavior.
+- Investigate FTP brute-force login attempts.
+- Examine HTTP traffic and exposed credentials.
+- Analyze VoIP communication using SIP and RTP.
+- Inspect TCP streams and HTTP responses.
+- Understand the importance of encryption in network security.
 
 ---
 
 ## 🛡️ Purpose of the Lab
 
-The lab provides an isolated and controlled environment for cybersecurity learning and authorized security testing.
+These Wireshark SOC labs provide a practical environment for learning network traffic analysis, packet inspection, and security monitoring.
 
-It can be used for activities such as:
+They can be used for activities such as:
+- Capturing and analyzing network packets
+- Identifying suspicious IP addresses and port scanning activities
+- Investigating TCP connections using Follow TCP Stream
+- Analyzing HTTP requests and responses
+- Detecting exposed usernames and passwords
+- Investigating SIP and RTP protocols in VoIP communication
+- Understanding network security risks and encryption techniques
 
-- Network reconnaissance and host discovery
-- Port scanning
-- Vulnerability assessment
-- Packet analysis
-- Web security testing
-- Exploitation practice
-- Security-tool experimentation
-
-⚠️ **Important:** This laboratory must only be used for systems that you own or have explicit permission to test. Do not use the lab or its tools to attack unauthorized systems.
+⚠️ Important: These labs are intended for educational purposes and authorized security analysis. Captured traffic may contain sensitive information, so it should be handled responsibly.
 
 ---
 
 ## 🏗️ Lab Outcomes
 
-- Successfully configured a Kali Linux virtual machine in Oracle VirtualBox.
-- Established a dedicated NAT Network for the cybersecurity lab.
-- Configured and verified IPv4 networking, gateway connectivity, and DNS resolution.
-- Created a clean VM snapshot for recovery and repeatable testing.
-- Prepared the environment for future penetration-testing and cybersecurity exercises.
-- Established a foundation for adding additional target machines to the same virtual network.
-
-![](1-screenshot-kali-screen.png)
+- Successfully completed five hands-on Wireshark SOC labs.
+- Captured and analyzed network traffic using Wireshark.
+- Identified suspicious IP addresses and detected port scanning activities.
+- Investigated TCP conversations using Follow TCP Stream.
+- Identified hidden information within HTTP responses and HTML comments.
+- Detected exposed credentials transmitted over unencrypted HTTP.
+- Analyzed SIP and RTP protocols and replayed captured VoIP calls.
+- Developed a better understanding of network protocols, traffic analysis, and encryption techniques.
+- Gained practical experience with network security monitoring and SOC investigation techniques.
 
 ---
 
@@ -83,137 +84,160 @@ It can be used for activities such as:
 | 🧩 Component       | ⚙️ Configuration   |
 | ------------------ | ------------------  |
 | 🖥️ Host OS         | Windows 11         |
-| 🧠 Host RAM        | 8 GB               |
-| ⚡ Processor       | Intel Core i7      |
-| 🧰 Hypervisor      | VirtualBox 7.2  |
-| 🐉 Security OS     | Kali Linux 2026.2  |
-| 🧠 Kali RAM        | 4096 MB            |
-| 🌐 Virtual Network | NAT Network        |
-| 📡 Network Address | 10.0.0.0/24        |
-| 🐧 Kali IP Address | 10.0.0.2/24        |
-| 🚪 Default Gateway | 10.0.0.1           |
-| 🌍 DNS Server      | 8.8.8.8            |
-| 🔮 Future VM Range | 10.0.0.3–10.0.0.99 |
+| 🛠️ Analysis Tool   | Wireshark          |
+| 🌐 Lab Platform    | NetworkWalks       |
+| 🌍 Web Protocols   | HTTP / HTTPS       |
+| ☎️ VoIP Protocols  | SIP / RTP          |
+| 🧪 Labs            | 6                  |
+| 🎯 Focus           | Network Security Monitoring        |
 
 ---
 
-# 🪜 Lab Setup Procedure
+# 🪜 Lab Execution Procedure
 
-## Step 1. Install 7-Zip
+## Step 1. Access the Wireshark SOC Labs
 
-Installed 7-Zip to extract the Kali Linux virtual machine package distributed in .7z format.
+Opened the Wireshark SOC labs.
 
----
+Lab provided a simulated Windows 11 environment with Wireshark pre-installed for packet capture and network traffic analysis.
 
-## Step 2. Install VirtualBox
-
-Installed Oracle VirtualBox as the hypervisor to create and manage virtual machines on the Windows 11 host system.
+![](1-Wireshark.png)
 
 ---
 
-## Step 3. Create the NAT Network
+## Step 2. Start Wireshark Packet Capture
 
-A dedicated NAT Network was created in VirtualBox.
+Signed in to the virtual lab environment using the provided credentials.
 
-Configuration:
-Network Name: NatNetwork
-IPv4 Prefix:  10.0.0.0/24
-DHCP:         Enabled
-IPv6:         Disabled
+Opened Wireshark, selected the active Wi-Fi interface, and started capturing network traffic.
 
-![](2-screenshot-network-settings.png)
-
-A **NAT Network** was selected because multiple virtual machines connected to the same NAT Network can communicate with one another while also having outbound network connectivity.
-
-This will allow future attacker and target VMs to communicate within the lab.
-
+![](6-Screenshot.png)
 
 ---
 
-## Step 4. Import Kali Linux
+## Step 3. Identify the Attacker's IP
 
-The Kali Linux virtual machine was downloaded from the official Kali Linux website and imported into VirtualBox.
-
-The VM network adapter was configured as follows:
+Applied the following display filter to identify TCP SYN packets:
 
 ```text
-Adapter 1
-Attached to: NAT Network
-Network:     NatNetwork
-Adapter Type: Intel PRO/1000 MT Desktop
+tcp.flags.syn == 1
 ```
 
-The VM was allocated:
+Analyzed the Source and Destination columns to identify repeated connection attempts.
+
+
+
+Findings:
 
 ```text
-RAM: 4096 MB
+Attacker IP
+Target IP
+Ports Tried
+Open Ports
+Closed Ports
+Attack Type
 ```
-![](3-screenshot-kali-linux.png)
-A shared folder was also configured for transferring required files between the host operating system and the Kali VM.
-
-
 
 ---
 
-## Step 5. Configure the Kali Linux Network
+## Step 4. Analyze TCP Conversations
 
-The Kali Linux network configuration was checked and configured with a consistent IPv4 address.
+Identified TCP port 5000 through Statistics → Conversations and followed the TCP stream to reconstruct the plain-text chat communication.
 
-Example configuration:
+Applied the filter:
 
 ```text
-IP Address: 10.0.0.2
-Subnet Mask: 255.255.255.0
-Gateway: 10.0.0.1
-DNS: 8.8.8.8
+tcp.port == 5000
 ```
 
-A consistent IP address makes it easier to document the lab and reference the Kali machine in future exercises.
 
-![](3-screenshot-kali-network-settings.png)
+
+Findings:
+- Identified the client IP.
+- Identified the server IP.
+- Examined TCP stream number.
+- Reconstructed client-server chat messages.
+- Observed sensitive information transmitted without encryption.
 
 ---
 
-## Step 6. Create a Clean VM Snapshot
+## Step 5. Investigate Hidden Information in HTTP Traffic
 
-After completing the initial configuration, a VirtualBox snapshot was created.
-
-Example snapshot name:
+Applied the HTTP display filter to inspect web requests and responses.
 
 ```text
-Clean Kali - Network Setup
+http
 ```
 
-The snapshot represents the clean baseline of the laboratory.
+Used Follow TCP Stream to examine requested pages and identify hidden information within HTML comments.
 
-If a future exercise changes or damages the VM configuration, the machine can be restored to this baseline.
-
+Findings:
+- Identified /staff.html as the page containing hidden information.
+- Located an HTML comment in the server response.
+- Identified TCP stream 7.
+- Examined the HTTP response status code (200 OK).
+- Investigated a downloaded text file (report.txt).
 
 ---
+
+## Step 6. Analyze HTTP Plain-Text Credentials
+
+Applied the following display filter to identify HTTP POST requests:
+
+```text
+http.request.method == "POST"
+```
+
+Inspected packet details and examined the HTML Form URL Encoded section to understand how login information was transmitted.
+
+Findings:
+- Identified the /login endpoint.
+- Identified the client IP address.
+- Examined two login attempts.
+- Inspected transmitted username and password fields.
+- Confirmed that HTTP exposes credentials because it does not encrypt the communication.
+Security Recommendation: Use HTTPS to protect login credentials during transmission.
+
+---
+
+## Step 7. Analyze HTTP Plain-Text Credentials
+
+Analyzed SIP and RTP packets to investigate the captured VoIP conversation.
+
+Applied the following display filters:
+
+```text
+sip
+```
+```text
+rtp
+```
+
+Used Telephony → VoIP Calls to identify the call and replay the captured audio streams.
+
+Findings:
+- Identified SIP as the call setup protocol.
+- Identified RTP as the voice transmission protocol.
+- Examined caller and receiver information.
+- Identified the G.711 PCMU audio codec.
+- Replayed the captured VoIP conversation.
+- Observed the security risks of unencrypted voice communication.
+
+Security Recommendation: Use SRTP to encrypt voice traffic and TLS to protect SIP signaling.
 
 # 🔎 Lab Verification
 
-| ✅ Test                        | 🧾 Command                      | 🎯 Expected Result              |
-| ----------------------------- | ------------------------------- | ------------------------------- |
-| 🌐 Check IP address           | `ip a`                          | Correct Kali IP displayed       |
-| 📡 Test gateway               | `ping 10.0.0.1`                 | Successful replies              |
-| 🌍 Test Internet connectivity | `ping 8.8.8.8`                  | Successful replies              |
-| 🔎 Test DNS resolution        | `nslookup networkwalks.com`     | Domain resolves                 |
-| 🧰 Verify Nmap                | `nmap --version`                | Nmap version displayed          |
-| 🔄 Verify snapshot            | Restore snapshot and run `ip a` | Baseline configuration restored |
-
-### Example Results
-
-```text
-IP Address:
-10.0.0.2/24
-
-Gateway:
-10.0.0.1
-
-DNS:
-8.8.8.8
-```
+| ✅ Test | 🧾 Wireshark Filter | 🎯 Expected Result |
+|---|---|---|
+| Network packet capture | Wi-Fi Interface | Packets successfully captured |
+| TCP SYN analysis | `tcp.flags.syn == 1` | Identify suspicious connection attempts |
+| IP investigation | Source / Destination | Identify attacker and target |
+| TCP conversation | `tcp.port == 5000` | Reconstruct chat communication |
+| HTTP investigation | `http` | Inspect web requests and responses |
+| POST request analysis | `http.request.method == "POST"` | Identify login submissions |
+| VoIP investigation | `sip` | Identify call signaling |
+| Voice traffic analysis | `rtp` | Inspect RTP packets |
+| TCP stream reconstruction | Follow → TCP Stream | Read reconstructed communication |
 
 ---
 
@@ -221,56 +245,72 @@ DNS:
 
 Documenting problems is an important part of the project.
 
-## Problem 1. Internet Connectivity After Static IP Configuration
+## Problem 1. Identifying Relevant Network Packets
 
-After manually configuring the IPv4 settings, Internet connectivity may fail depending on the Kali/NetworkManager configuration.
+- Issue: 
+Captured traffic contained many different protocols and packets, making it difficult to identify relevant communication.
 
-One workaround used during this lab was:
+- Solution: 
+Applied Wireshark display filters to narrow down the traffic and focus on specific protocols, IP addresses, and packet types.
 
-```bash
-sudo nmcli connection modify "Wired connection 1" ipv4.dad-timeout 0
-```
+## Problem 2. Analyzing TCP Communication
 
-The network connection was then restarted/rebooted and connectivity was tested again.
+- Issue: Understanding the complete conversation from individual TCP packets was difficult.
 
-> **Important:** Network interface and connection names may differ between systems. Students should first identify their actual connection name before running an `nmcli` command.
+- Solution: Used Follow → TCP Stream to reconstruct and inspect the communication between systems.
+
+## Problem 3. Identifying Application-Layer Protocols
+
+- Issue: Different network protocols use different commands and response codes.
+
+- Solution: Used Protocol Hierarchy and protocol-specific filters to identify HTTP, FTP, SIP, and RTP traffic.
+
+## Problem 4. Understanding Encrypted and Unencrypted Traffic
+
+- Issue: Sensitive information was visible in some captured network communications.
+
+- Solution: Examined the captured traffic and identified the need for secure protocols such as HTTPS, SFTP, TLS, and SRTP.
 
 
 # 💡 What I Learned
 
-Through this project, I learned how to create and configure a virtual environment for cybersecurity practice.
+Through this project, I developed an understanding of network traffic analysis and basic SOC investigation techniques.
 
 The most important concepts I learned include:
 
-### 1. NAT vs NAT Network
+### 1. Packet Capture and Analysis
 
-A standard NAT configuration and a NAT Network serve different purposes.
+Learned how to capture network traffic and inspect packet details using Wireshark.
 
-A NAT Network allows multiple VMs connected to the same virtual network to communicate with one another while providing network address translation for external connectivity.
+### 2. Display Filters
 
-This makes it useful for building a multi-machine cybersecurity laboratory.
+Learned to apply protocol-specific filters to identify relevant network packets efficiently.
 
-### 2. Virtual Machine Networking
+### 3. Network Protocols
 
-I learned how VirtualBox virtual network adapters connect virtual machines to different types of networks and how network configuration affects communication between machines.
+Developed practical knowledge of TCP, HTTP, FTP, SIP, RTP, and related communication protocols.
 
-### 3. Static IP Configuration
+### 4.  Attack Detection
 
-I learned how to configure and verify IPv4 addressing, subnet masks, gateways, and DNS settings in Kali Linux.
+Learned how to recognize suspicious activities such as TCP SYN scanning and FTP brute-force attempts.
 
-### 4. VM Snapshots
+### 5. TCP Stream Analysis
 
-I learned that a clean snapshot should be created **before performing risky or experimental activities**.
+Learned how to reconstruct network conversations and inspect communication using Follow TCP Stream.
 
-This provides a known-good recovery point for future cybersecurity exercises.
+### 6. Security Weaknesses
 
-### 5. Documentation
+Understood how unencrypted protocols can expose sensitive information and why secure communication is important.
 
-I learned that documenting commands, configuration, screenshots, problems, and solutions is an important part of a professional cybersecurity project.
+### 7. SOC Investigation
+
+Practiced identifying suspicious IP addresses, analyzing network events, examining evidence, and documenting findings.
 
 ---
 
 # 🔐 Security & Ethical Use
+
+All exercises documented in this repository were performed in a controlled educational lab environment.
 
 This laboratory is intended strictly for education purposes only.
 
@@ -278,11 +318,10 @@ This laboratory is intended strictly for education purposes only.
 
 # 🔗 Tools & Resources
 
-- **7-Zip:** [https://7-zip.org/download.html](https://7-zip.org/download.html)
-- **VirtualBox:** [https://virtualbox.org/wiki/Downloads](https://virtualbox.org/wiki/Downloads)
-- **Kali Linux:** [https://kali.org/get-kali](https://kali.org/get-kali)
+- **Wireshark:** [https://wireshark.org](https://www.wireshark.org)
+- **Networkwalks:** [https://networkwalks.com/](https://.networkwalks.com/)
 
----
+--- 
 
 # 👤 Author
 
@@ -295,4 +334,4 @@ LinkedIn: [https://www.linkedin.com/in/ziaurrehmanr05/](https://www.linkedin.com
 
 ## 📌 Project Information
 
-**Program Name:** Cybersecurity at Networkwalks | **Week:** 01 | **Project:** Cybersecurity & Pentesting Lab Setup | **Repository:** GitHub
+**Program Name:** Cybersecurity at Networkwalks | **Week:** 01 | **Project:** Wireshark SOC Lab Network Traffic Analysis | **Repository:** GitHub
